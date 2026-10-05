@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ĐỀ THI CUỐI MÔN MICROSERVICES SYSTEM DESIGN - ĐỀ 002</title>
+    <style>
+      :root {
+        --primary-color: #1e3a8a;
+        --secondary-color: #2563eb;
+        --accent-color: #0d9488;
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --text-color: #1e293b;
+        --border-color: #e2e8f0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+      }
+
+      .header {
+        text-align: center;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        color: var(--primary-color);
+        font-size: 26px;
+        margin: 0 0 10px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .header .subtitle {
+        font-size: 16px;
+        color: #64748b;
+        font-weight: 600;
+      }
+
+      .badge-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        background-color: #dbeafe;
+        color: #1e40af;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .badge-green {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+
+      h2 {
+        color: var(--primary-color);
+        font-size: 20px;
+        border-left: 4px solid var(--secondary-color);
+        padding-left: 10px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        color: var(--secondary-color);
+        font-size: 17px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      ul,
+      ol {
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 15px;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--border-color);
+        padding: 12px 15px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f1f5f9;
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+
+      .code-inline {
+        background-color: #f1f5f9;
+        color: #0f172a;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Courier New", monospace;
+        font-size: 14px;
+      }
+
+      a {
+        color: var(--secondary-color);
+        text-decoration: underline;
+      }
+
+      pre {
+        background-color: #0f172a;
+        color: #f8fafc;
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-family: "Consolas", "Courier New", monospace;
+        font-size: 14px;
+      }
+
+      .alert-box {
+        background-color: #f0fdf4;
+        border-left: 4px solid #16a34a;
+        padding: 15px;
+        border-radius: 0 8px 8px 0;
+        margin: 20px 0;
+      }
+
+      .alert-title {
+        font-weight: bold;
+        color: #15803d;
+        margin-bottom: 5px;
+      }
+
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 13px;
+        color: #94a3b8;
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Đề Thi Cuối Môn Microservices System Design</h1>
+        <div class="subtitle">MÃ ĐỀ: 002 (MỨC ĐỘ VỪA PHẢI / ĐƠN GIẢN)</div>
+        <div class="badge-container">
+          <span class="badge">Thời gian: 90 phút</span>
+          <a
+            href="https://github.com/hunghx/HN-K24-CNTT3-Microservices-Exam-Test"
+            target="_blank"
+            class="badge badge-green"
+            >Base Project: HN-K24-CNTT3-Microservices-Exam-Test</a
+          >
+          <span class="badge">Ngôn ngữ: Java 21</span>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">📌 Yêu cầu chung đối với sinh viên:</div>
+        <ul>
+          <li>
+            Kéo base dự án về và làm:
+            <a
+              href="https://github.com/hunghx/HN-K24-CNTT3-Microservices-Exam-Test"
+              target="_blank"
+              >https://github.com/hunghx/HN-K24-CNTT3-Microservices-Exam-Test</a
+            >
+          </li>
+          <li>
+            Tạo repository Github cá nhân theo cú pháp:
+            <span class="code-inline">[Tên lớp]_[Họ Tên]_[Mã đề]</span> (Ví dụ:
+            <span class="code-inline">HN-K24-CNTT3_NguyenVanA_002</span>).
+          </li>
+          <li>
+            Chỉ hoàn thiện mã Java tại các vị trí đánh dấu
+            <span class="code-inline">// TODO</span>. Không sửa tên service,
+            package, endpoint, DTO, entity hoặc file cấu hình YAML có sẵn.
+          </li>
+        </ul>
+      </div>
+
+      <h2>1. Bối cảnh bài toán</h2>
+      <p>
+        Xây dựng phần còn thiếu cho
+        <strong
+          >Hệ thống Quản lý Mượn Sách Thư viện (Library Management
+          System)</strong
+        >
+        theo kiến trúc Microservices gồm các dịch vụ sau:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Port</th>
+            <th>Chức năng / Ý nghĩa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-inline">eureka-server</span></td>
+            <td>8761</td>
+            <td>
+              Service Registry - Quản lý việc đăng ký và phát hiện dịch vụ
+              <i>(Cung cấp sẵn)</i>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="code-inline">api-gateway</span></td>
+            <td>8080</td>
+            <td>
+              API Gateway - Cổng truy cập chung và định tuyến request
+              <i>(Cung cấp sẵn)</i>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="code-inline">book-service</span></td>
+            <td>8081</td>
+            <td>
+              Quản lý thông tin sách, hỗ trợ Redis Caching để tối ưu tra cứu
+            </td>
+          </tr>
+          <tr>
+            <td><span class="code-inline">borrow-service</span></td>
+            <td>8082</td>
+            <td>
+              Tiếp nhận yêu cầu mượn sách, gọi
+              <span class="code-inline">book-service</span> qua OpenFeign, lưu
+              phiếu mượn và phát sự kiện Kafka
+            </td>
+          </tr>
+          <tr>
+            <td><span class="code-inline">notification-service</span></td>
+            <td>8083</td>
+            <td>
+              Lắng nghe sự kiện Kafka và gửi thông báo email xác nhận mượn sách
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Thông tin API & Quy ước dữ liệu</h2>
+
+      <h3>Danh sách Endpoint chính (gọi qua Gateway Port 8080):</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Chức năng</th>
+            <th>HTTP Method</th>
+            <th>Endpoint</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tra cứu thông tin sách theo ID</td>
+            <td><span class="code-inline">GET</span></td>
+            <td><span class="code-inline">/api/v1/books/{id}</span></td>
+          </tr>
+          <tr>
+            <td>Tạo phiếu mượn sách</td>
+            <td><span class="code-inline">POST</span></td>
+            <td><span class="code-inline">/api/v1/borrows</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Sample Request tạo phiếu mượn sách:</h3>
+      <pre><code>POST http://localhost:8080/api/v1/borrows
+Content-Type: application/json
+
+{
+  "studentId": "SV12345",
+  "studentEmail": "nguyenvana@gmail.com",
+  "bookId": 1
+}</code></pre>
+
+      <h2>3. Chi tiết các phần bài thi</h2>
+
+      <h3>PHẦN 1: Borrow Service (60 điểm)</h3>
+      <p>
+        Thí sinh mở file
+        <span class="code-inline">BorrowServiceImpl.java</span> và
+        <span class="code-inline">KafkaProducerService.java</span> để viết code:
+      </p>
+      <ul>
+        <li>
+          <strong>Gọi Book Service:</strong> Sử dụng
+          <span class="code-inline">BookClient</span> để lấy chi tiết thông tin
+          sách theo <span class="code-inline">bookId</span>.
+          <ul>
+            <li>
+              Nếu <span class="code-inline">BookClient</span> trả về
+              <span class="code-inline">null</span> (do
+              <span class="code-inline">book-service</span> bị sập), ném
+              exception
+              <span class="code-inline"
+                >IllegalStateException("Dich vu Book Service hien khong kha
+                dung")</span
+              >
+              -> Trả về HTTP 503.
+            </li>
+            <li>
+              Nếu <span class="code-inline">availableQuantity <= 0</span>, ném
+              exception
+              <span class="code-inline"
+                >IllegalArgumentException("Sach da het, khong the muon")</span
+              >
+              -> Trả về HTTP 400.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Lưu thông tin mượn:</strong> Khởi tạo entity
+          <span class="code-inline">BorrowRecord</span> với trạng thái
+          <span class="code-inline">"BORROWED"</span>, ngày mượn là thời gian
+          hiện tại và lưu vào Database.
+        </li>
+        <li>
+          <strong>Phát sự kiện Kafka:</strong> Hoàn thiện phương thức trong
+          <span class="code-inline">KafkaProducerService.java</span> để phát
+          chuỗi <span class="code-inline">studentEmail</span> tới Kafka topic
+          <span class="code-inline">borrow-created</span>.
+        </li>
+        <li>
+          <strong>Response:</strong> Trả về
+          <span class="code-inline">BorrowResponse</span> với HTTP Status
+          <span class="code-inline">201 Created</span>.
+        </li>
+      </ul>
+
+      <h3>PHẦN 2: Book Service (25 điểm)</h3>
+      <p>
+        Thí sinh mở file
+        <span class="code-inline">BookServiceImpl.java</span> để hoàn thiện cơ
+        chế Caching:
+      </p>
+      <ul>
+        <li>
+          Áp dụng annotation <span class="code-inline">@Cacheable</span> trên
+          phương thức <span class="code-inline">getBookById(Long id)</span>.
+        </li>
+        <li>
+          Đặt tên cache là <span class="code-inline">"books"</span> và cache key
+          là <span class="code-inline">#id</span>.
+        </li>
+        <li>
+          Lần truy vấn đầu tiên sẽ lấy từ H2 Database và lưu vào Redis. Các lần
+          tra cứu tiếp theo với cùng ID sẽ đọc dữ liệu từ Redis.
+        </li>
+      </ul>
+
+      <h3>PHẦN 3: Notification Service (15 điểm)</h3>
+      <p>
+        Thí sinh mở file
+        <span class="code-inline">NotificationConsumer.java</span> để viết mã
+        cho Kafka Consumer:
+      </p>
+      <ul>
+        <li>
+          Khai báo annotation <span class="code-inline">@KafkaListener</span> để
+          lắng nghe sự kiện từ topic
+          <span class="code-inline">borrow-created</span>.
+        </li>
+        <li>
+          Đọc thông tin payload <span class="code-inline">studentEmail</span> và
+          truyền vào phương thức
+          <span class="code-inline"
+            >notificationService.sendEmailNotification(...)</span
+          >.
+        </li>
+      </ul>
+
+      <h2>4. Thứ tự khởi chạy hệ thống</h2>
+      <ol>
+        <li>Redis & Apache Kafka Server</li>
+        <li><span class="code-inline">eureka-server</span> (Port 8761)</li>
+        <li><span class="code-inline">book-service</span> (Port 8081)</li>
+        <li><span class="code-inline">borrow-service</span> (Port 8082)</li>
+        <li>
+          <span class="code-inline">notification-service</span> (Port 8083)
+        </li>
+        <li><span class="code-inline">api-gateway</span> (Port 8080)</li>
+      </ol>
+
+      <h2>5. Bảng tổng hợp điểm</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nội dung thực hiện</th>
+            <th>Nằm tại Service</th>
+            <th>Điểm số</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Xử lý logic mượn sách, Feign Client, kiểm tra tồn kho & Kafka
+              Producer
+            </td>
+            <td><span class="code-inline">borrow-service</span></td>
+            <td><strong>60 điểm</strong></td>
+          </tr>
+          <tr>
+            <td>Tích hợp Redis Caching cho API lấy thông tin sách</td>
+            <td><span class="code-inline">book-service</span></td>
+            <td><strong>25 điểm</strong></td>
+          </tr>
+          <tr>
+            <td>Cấu hình Kafka Consumer và xử lý gửi thông báo</td>
+            <td><span class="code-inline">notification-service</span></td>
+            <td><strong>15 điểm</strong></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: right; font-weight: bold">
+              TỔNG ĐIỂM:
+            </td>
+            <td>
+              <strong style="color: var(--secondary-color); font-size: 18px"
+                >100 điểm</strong
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="footer">
+        --- HẾT --- <br />
+        <i
+          >Thí sinh không được sử dụng tài liệu ngoài các thư viện đã được tích
+          hợp sẵn trong mã nguồn.</i
+        >
+      </div>
+    </div>
+  </body>
+</html>
